@@ -7,16 +7,16 @@ public class Entry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long entry_id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Poll poll;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User user;
-
     private Value value;
     private int number;
 
     private String time_submitted;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Poll poll;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Brukar brukar;
+
 
     public Poll getPoll() {
         return poll;
@@ -26,12 +26,12 @@ public class Entry {
         this.poll = poll;
     }
 
-    public User getUser() {
-        return user;
+    public Brukar getBrukar() {
+        return brukar;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setBrukar(Brukar brukar) {
+        this.brukar = brukar;
     }
 
     public Value getValue() {
