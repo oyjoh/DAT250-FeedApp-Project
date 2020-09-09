@@ -23,31 +23,36 @@ public class Poll {
         return brukar;
     }
 
-    public void setBrukar(Brukar brukar) {
+    public Poll setBrukar(Brukar brukar) {
         this.brukar = brukar;
+        return this;
     }
 
     public List<Entry> getEntries() {
         return entries;
     }
 
-    public void setEntries(List<Entry> entries) {
+    public Poll setEntries(List<Entry> entries) {
         this.entries = entries;
+        return this;
     }
 
     public String getSummary() { return summary; }
-    public void setSummary(String summary) {
+    public Poll setSummary(String summary) {
         this.summary = summary;
+        return this;
     }
 
     public String getCreated_time() { return created_time; }
-    public void setCreated_time(String created_time) {
+    public Poll setCreated_time(String created_time) {
         this.created_time = created_time;
+        return this;
     }
 
     public String getUpdated_time() { return getUpdated_time(); }
-    public void setUpdated_time(String updated_time) {
+    public Poll setUpdated_time(String updated_time) {
         this.updated_time = updated_time;
+        return this;
     }
 
 }

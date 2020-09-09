@@ -17,30 +17,30 @@ public class Main {
         em.getTransaction().begin();
 
         // Create User
-        Brukar brukar = new Brukar();
-        brukar.setName("Gunnar");
-        brukar.setEmail("@");
-        brukar.setHash("ThisIsTheHash");
-        brukar.setSalt("ThisIsTheSalt");
-        brukar.setCreated_time("ThisIsCreatedTime");
-        brukar.setUpdated_time("ThisIsUpdatedTime");
+        Brukar brukar = new Brukar()
+                .setName("Gunnar")
+                .setEmail("@")
+                .setHash("ThisIsTheHash")
+                .setSalt("ThisIsTheSalt")
+                .setCreated_time("ThisIsCreatedTime")
+                .setUpdated_time("ThisIsUpdatedTime");
         // Create Poll
-        Poll poll = new Poll();
-        poll.setSummary("ThisIsASummary");
-        poll.setCreated_time("ThisIsCreatedTime");
-        poll.setUpdated_time("ThisIsUpdatedTime");
-        poll.setBrukar(brukar);
+        Poll poll = new Poll()
+                .setSummary("ThisIsASummary")
+                .setCreated_time("ThisIsCreatedTime")
+                .setUpdated_time("ThisIsUpdatedTime")
+                .setBrukar(brukar);
         List<Poll> pollList = new ArrayList<>();
         pollList.add(poll);
         // Add the poll to the user
         brukar.setPolls(pollList);
         // Create an entry in the poll
-        Entry entry = new Entry();
-        entry.setPoll(poll);
-        entry.setNumber(1);
-        entry.setValue(Value.YES);
-        entry.setTime_submitted("Now");
-        entry.setBrukar(brukar);
+        Entry entry = new Entry()
+                .setPoll(poll)
+                .setNumber(1)
+                .setValue(Value.YES)
+                .setTime_submitted("Now")
+                .setBrukar(brukar);
         // Add the entry to the poll
         List<Entry> entryList = new ArrayList<>();
         entryList.add(entry);

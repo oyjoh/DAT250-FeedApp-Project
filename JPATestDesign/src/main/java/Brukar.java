@@ -23,39 +23,46 @@ public class Brukar {
         return polls;
     }
 
-    public void setPolls(List<Poll> polls) {
+    public Brukar setPolls(List<Poll> polls) {
         this.polls = polls;
+        return this;
     }
 
 
     public String getName() { return name; }
-    public void setName(String name) {
+    public Brukar setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getEmail() { return email; }
-    public void setEmail(String email) {
+    public Brukar setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public String getHash() { return hash; }
-    public void setHash(String hash) {
+    public Brukar setHash(String hash) {
         this.hash = hash;
+        return this;
     }
 
     public String getSalt() { return salt; }
-    public void setSalt(String salt) {
+    public Brukar setSalt(String salt) {
         this.salt = salt;
+        return this;
     }
 
     public String getCreated_time() { return created_time; }
-    public void setCreated_time(String created_time) {
+    public Brukar setCreated_time(String created_time) {
         this.created_time = created_time;
+        return this;
     }
 
     public String getUpdated_time() { return getUpdated_time(); }
-    public void setUpdated_time(String updated_time) {
+    public Brukar setUpdated_time(String updated_time) {
         this.updated_time = updated_time;
+        return this;
     }
 
 

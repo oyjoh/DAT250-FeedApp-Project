@@ -22,39 +22,44 @@ public class Entry {
         return poll;
     }
 
-    public void setPoll(Poll poll) {
+    public Entry setPoll(Poll poll) {
         this.poll = poll;
+        return this;
     }
 
     public Brukar getBrukar() {
         return brukar;
     }
 
-    public void setBrukar(Brukar brukar) {
+    public Entry setBrukar(Brukar brukar) {
         this.brukar = brukar;
+        return this;
     }
 
     public Value getValue() {
         return value;
     }
 
-    public void setValue(Value value) {
+    public Entry setValue(Value value) {
         this.value = value;
+        return this;
     }
 
     public int getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public Entry setNumber(int number) {
         this.number = number;
+        return this;
     }
 
     public String getTime_submitted() {
         return time_submitted;
     }
 
-    public void setTime_submitted(String time_submitted) {
+    public Entry setTime_submitted(String time_submitted) {
         this.time_submitted = time_submitted;
+        return this;
     }
 }
