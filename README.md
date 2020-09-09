@@ -1,2 +1,3 @@
 # DAT250-FeedApp-Project
-Y/O
+
+Note: When setting up the project, change the directory in the xml file to your own path. <property name="..." value="jbdc:derby:/yourPath" />
