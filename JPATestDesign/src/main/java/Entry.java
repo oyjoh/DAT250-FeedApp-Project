@@ -21,7 +21,6 @@ public class Entry {
     public Poll getPoll() {
         return poll;
     }
-
     public void setPoll(Poll poll) {
         this.poll = poll;
     }
@@ -29,7 +28,6 @@ public class Entry {
     public Brukar getBrukar() {
         return brukar;
     }
-
     public void setBrukar(Brukar brukar) {
         this.brukar = brukar;
     }
@@ -37,7 +35,6 @@ public class Entry {
     public Value getValue() {
         return value;
     }
-
     public void setValue(Value value) {
         this.value = value;
     }
@@ -45,7 +42,6 @@ public class Entry {
     public int getNumber() {
         return number;
     }
-
     public void setNumber(int number) {
         this.number = number;
     }
@@ -53,7 +49,6 @@ public class Entry {
     public String getTime_submitted() {
         return time_submitted;
     }
-
     public void setTime_submitted(String time_submitted) {
         this.time_submitted = time_submitted;
     }
@@ -68,7 +63,6 @@ public class Entry {
         this.time_submitted = time_submitted;
     }
 
-
     public static EntryBuilder builder() {
         return new EntryBuilder();
     }
@@ -78,6 +72,7 @@ public class Entry {
         return "Entry{" + value.name()+ "," + number +
                 '}';
     }
+
 
     public static class EntryBuilder {
 
