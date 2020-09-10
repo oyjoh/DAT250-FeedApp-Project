@@ -22,48 +22,99 @@ public class Brukar {
     public List<Poll> getPolls() {
         return polls;
     }
-
-    public Brukar setPolls(List<Poll> polls) {
+    public void setPolls(List<Poll> polls) {
         this.polls = polls;
-        return this;
     }
 
-
     public String getName() { return name; }
-    public Brukar setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
     }
 
     public String getEmail() { return email; }
-    public Brukar setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
     }
 
     public String getHash() { return hash; }
-    public Brukar setHash(String hash) {
+    public void setHash(String hash) {
         this.hash = hash;
-        return this;
     }
 
     public String getSalt() { return salt; }
-    public Brukar setSalt(String salt) {
+    public void setSalt(String salt) {
         this.salt = salt;
-        return this;
     }
 
     public String getCreated_time() { return created_time; }
-    public Brukar setCreated_time(String created_time) {
+    public void setCreated_time(String created_time) {
         this.created_time = created_time;
-        return this;
     }
 
-    public String getUpdated_time() { return getUpdated_time(); }
-    public Brukar setUpdated_time(String updated_time) {
+    public String getUpdated_time() { return updated_time; }
+    public void setUpdated_time(String updated_time) {
         this.updated_time = updated_time;
-        return this;
     }
 
+    protected Brukar(){}
+
+    private Brukar(String name, String email, String hash, String salt, String created_time, String updated_time) {
+        this.name = name;
+        this.email = email;
+        this.hash = hash;
+        this.salt = salt;
+        this.updated_time = updated_time;
+        this.created_time = created_time;
+    }
+
+    public static BrukarBuilder builder() {
+        return new BrukarBuilder();
+    }
+
+    public static class BrukarBuilder {
+
+        private String name;
+        private String email;
+        private String hash;
+        private String salt;
+        private String created_time;
+        private String updated_time;
+
+        public BrukarBuilder setName(final String name) {
+            this.name = name;
+            return this;
+        }
+
+        public BrukarBuilder setEmail(final String email) {
+            this.email = email;
+            return this;
+        }
+
+        public BrukarBuilder setHash(final String hash) {
+            this.hash = hash;
+            return this;
+        }
+
+        public BrukarBuilder setSalt(final String salt) {
+            this.salt = salt;
+            return this;
+        }
+
+        public BrukarBuilder setCreated_time(final String created_time) {
+            this.created_time = created_time;
+            return this;
+        }
+
+        public BrukarBuilder setUpdated_time(final String updated_time) {
+            this.updated_time = updated_time;
+            return this;
+        }
+
+
+        public Brukar build() {
+            return new Brukar(name, email, hash, salt, created_time, updated_time);
+        }
+
+    }
 
 }

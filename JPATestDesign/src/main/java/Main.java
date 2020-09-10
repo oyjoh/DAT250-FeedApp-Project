@@ -17,15 +17,16 @@ public class Main {
         em.getTransaction().begin();
 
         // Create User
-        Brukar brukar = new Brukar();
-        brukar.setName("Gunnar");
-        brukar.setEmail("@");
-        brukar.setHash("ThisIsTheHash");
-        brukar.setSalt("ThisIsTheSalt");
-        brukar.setCreated_time("ThisIsCreatedTime");
-        brukar.setUpdated_time("ThisIsUpdatedTime");
+        Brukar brukar = Brukar.builder()
+                .setName("Gunnar")
+                .setEmail("user@mail.com")
+                .setHash("ThisIsTheHash")
+                .setSalt("ThisIsTheSalt")
+                .setCreated_time("ThisIsCreatedTime")
+                .setUpdated_time("ThisIsUpdatedTime")
+                .build();
         // Create Poll
-        Poll poll = new Poll().builder()
+        Poll poll = Poll.builder()
                 .setSummary("ThisIsASummary")
                 .setCreated_time("ThisIsCreatedTime")
                 .setUpdated_time("ThisIsUpdatedTime")
@@ -36,11 +37,12 @@ public class Main {
         // Add the poll to the user
         brukar.setPolls(pollList);
         // Create an entry in the poll
-        Entry entry = new Entry().builder()
-                .setNumber(1)
-                .setValue(Value.YES)
+        Entry entry = Entry.builder()
+                .setNumber(100)
+                .setValue(Value.NO)
                 .setTime_submitted("Now")
                 .setBrukar(brukar)
+                .setPoll(poll)
                 .build();
         // Add the entry to the poll
         List<Entry> entryList = new ArrayList<>();
