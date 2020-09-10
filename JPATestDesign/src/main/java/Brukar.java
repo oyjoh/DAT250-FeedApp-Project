@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+//@Table(name = "user")
 public class Brukar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

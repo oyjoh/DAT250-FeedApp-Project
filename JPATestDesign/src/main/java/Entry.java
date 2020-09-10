@@ -1,6 +1,11 @@
 import javax.persistence.*;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Entry.findAll", query="SELECT e FROM Entry e"),
+        @NamedQuery(name="Entry.findByPoll",
+                query="SELECT e FROM Entry e WHERE e.poll.poll_id = :poll"),
+})
 public class Entry {
 
     @Id

@@ -19,6 +19,10 @@ public class Poll {
     private List<Entry> entries = new ArrayList<>();
 
 
+    public Long getPoll_id() {
+        return poll_id;
+    }
+
     public Brukar getBrukar() {
         return brukar;
     }
