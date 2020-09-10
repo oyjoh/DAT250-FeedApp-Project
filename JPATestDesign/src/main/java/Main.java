@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Main {
     private static final String PERSISTENCE_UNIT_NAME = "poll";
-    private static final String ENVIRONMENT_DATABASE_PATH = "mypath";
+    private static final String ENVIRONMENT_JDBC_URL = "jdbc_url";
     private static EntityManagerFactory factory;
 
     public static void main(String[] args) {
@@ -78,10 +78,7 @@ public class Main {
     public static Map<String, Object> configOverrideFromEnv() {
         Map<String, String> env = System.getenv();
         Map<String, Object> configOverrides = new HashMap<>();
-        configOverrides.put("javax.persistence.jdbc.url",
-                "jdbc:derby:/Users/"
-                        + env.get(ENVIRONMENT_DATABASE_PATH)
-                        + "/DAT250/persistence/project1;create=true");
+        configOverrides.put("javax.persistence.jdbc.url", env.get(ENVIRONMENT_JDBC_URL));
 
         return configOverrides;
     }
