@@ -84,7 +84,7 @@ public class BrukarDao implements IBrukarDao{
         return getBrukarById(brukarId).getPolls();
     }
 
-    private Brukar getBrukarById(Long brukarId) {
+    public Brukar getBrukarById(Long brukarId) {
         return entityManager.find(Brukar.class, brukarId);
     }
 
