@@ -67,11 +67,12 @@ public class Poll {
 
     protected Poll(){}
 
-    private Poll(Brukar brukar, String summary, String created_time, String updated_time) {
+    private Poll(Brukar brukar, String summary, String created_time, String updated_time, boolean isPublic) {
         this.summary = summary;
         this.created_time = created_time;
         this.updated_time = updated_time;
         this.brukar = brukar;
+        this.isPublic = isPublic;
     }
 
     public static PollBuilder builder() {
@@ -86,16 +87,9 @@ public class Poll {
         private String updated_time;
         private boolean isPublic;
 
-        private List<Entry> entries = new ArrayList<>();
-
 
         public PollBuilder setBrukar(final Brukar brukar) {
             this.brukar = brukar;
-            return this;
-        }
-
-        public PollBuilder setIsPublic(final boolean isPublic) {
-            this.isPublic = isPublic;
             return this;
         }
 
@@ -114,9 +108,16 @@ public class Poll {
             return this;
         }
 
+        public PollBuilder setIsPublic(final boolean isPublic) {
+            this.isPublic = isPublic;
+            return this;
+        }
+
+
+
 
         public Poll build() {
-            return new Poll(brukar, summary, created_time, updated_time);
+            return new Poll(brukar, summary, created_time, updated_time, isPublic);
         }
 
     }

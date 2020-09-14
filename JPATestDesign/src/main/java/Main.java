@@ -37,7 +37,7 @@ public class Main {
 
          */
         PollDao pollDao = new PollDao(em);
-        Poll poll = pollDao.addPoll("ThisIsSummary", brukar);
+        Poll poll = pollDao.addPoll("ThisIsSummary", brukar, true);
         List<Poll> pollList = new ArrayList<>();
         pollList.add(poll);
         // Add the poll to the user
