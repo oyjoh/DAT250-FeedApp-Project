@@ -81,11 +81,11 @@ public class BrukarDao implements IBrukarDao{
         String timestamp = TimeStamp.getTimeStamp();
 
         Brukar brukar = Brukar.builder()
-                .setName(name)
-                .setEmail(email)
-                .setHash(hash)
-                .setCreated_time(timestamp)
-                .setUpdated_time(timestamp)
+                .name(name)
+                .email(email)
+                .hash(hash)
+                .created_time(timestamp)
+                .updated_time(timestamp)
                 .build();
 
         // Add the new user to the database

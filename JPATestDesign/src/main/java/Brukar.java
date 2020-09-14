@@ -85,27 +85,27 @@ public class Brukar {
         private String created_time;
         private String updated_time;
 
-        public BrukarBuilder setName(final String name) {
+        public BrukarBuilder name(final String name) {
             this.name = name;
             return this;
         }
 
-        public BrukarBuilder setEmail(final String email) {
+        public BrukarBuilder email(final String email) {
             this.email = email;
             return this;
         }
 
-        public BrukarBuilder setHash(final String hash) {
+        public BrukarBuilder hash(final String hash) {
             this.hash = hash;
             return this;
         }
 
-        public BrukarBuilder setCreated_time(final String created_time) {
+        public BrukarBuilder created_time(final String created_time) {
             this.created_time = created_time;
             return this;
         }
 
-        public BrukarBuilder setUpdated_time(final String updated_time) {
+        public BrukarBuilder updated_time(final String updated_time) {
             this.updated_time = updated_time;
             return this;
         }

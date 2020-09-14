@@ -48,11 +48,11 @@ public class EntryDao {
     public Entry addEntry(Value value, Integer number, Brukar brukar, Poll poll) {
         String timestamp = TimeStamp.getTimeStamp();
         Entry entry = Entry.builder()
-                .setNumber(number)
-                .setValue(value)
-                .setTime_submitted(timestamp)
-                .setBrukar(brukar)
-                .setPoll(poll)
+                .number(number)
+                .value(value)
+                .time_submitted(timestamp)
+                .brukar(brukar)
+                .poll(poll)
                 .build();
 
         // Add the new entry to the database
@@ -63,8 +63,7 @@ public class EntryDao {
         return entry;
     }
 
-
-    private Entry getEntryById(Long entryId) {
+    public Entry getEntryById(Long entryId) {
         return entityManager.find(Entry.class, entryId);
     }
 

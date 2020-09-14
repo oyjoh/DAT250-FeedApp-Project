@@ -4,7 +4,7 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name="Poll.findAll", query="SELECT p FROM Poll p"),
+        @NamedQuery(name = "Poll.findAll", query = "SELECT p FROM Poll p"),
 })
 public class Poll {
     @Id
@@ -44,28 +44,48 @@ public class Poll {
         this.entries = entries;
     }
 
-    public String getSummary() { return summary; }
+    public String getSummary() {
+        return summary;
+    }
+
     public void setSummary(String summary) {
         this.summary = summary;
     }
 
-    public String getCreated_time() { return created_time; }
+    public String getCreated_time() {
+        return created_time;
+    }
+
     public void setCreated_time(String created_time) {
         this.created_time = created_time;
     }
 
-    public String getUpdated_time() { return updated_time; }
+    public String getUpdated_time() {
+        return updated_time;
+    }
+
     public void setUpdated_time(String updated_time) {
         this.updated_time = updated_time;
     }
 
-    public String getJoinKey() { return joinKey; }
-    public void setJoinKey(String joinKey) { this.joinKey = joinKey; }
+    public String getJoinKey() {
+        return joinKey;
+    }
 
-    public Boolean getIsPublic() { return isPublic; }
-    public void setIsPublic(Boolean isPublic) { this.isPublic = isPublic; }
+    public void setJoinKey(String joinKey) {
+        this.joinKey = joinKey;
+    }
 
-    protected Poll(){}
+    public Boolean getIsPublic() {
+        return isPublic;
+    }
+
+    public void setIsPublic(Boolean isPublic) {
+        this.isPublic = isPublic;
+    }
+
+    protected Poll() {
+    }
 
     private Poll(Brukar brukar, String summary, String created_time, String updated_time, Boolean isPublic) {
         this.summary = summary;
@@ -88,32 +108,30 @@ public class Poll {
         private Boolean isPublic;
 
 
-        public PollBuilder setBrukar(final Brukar brukar) {
+        public PollBuilder brukar(final Brukar brukar) {
             this.brukar = brukar;
             return this;
         }
 
-        public PollBuilder setSummary(final String summary) {
+        public PollBuilder summary(final String summary) {
             this.summary = summary;
             return this;
         }
 
-        public PollBuilder setCreated_time(final String created_time) {
+        public PollBuilder created_time(final String created_time) {
             this.created_time = created_time;
             return this;
         }
 
-        public PollBuilder setUpdated_time(final String updated_time) {
+        public PollBuilder updated_time(final String updated_time) {
             this.updated_time = updated_time;
             return this;
         }
 
-        public PollBuilder setIsPublic(final Boolean isPublic) {
+        public PollBuilder isPublic(final Boolean isPublic) {
             this.isPublic = isPublic;
             return this;
         }
-
-
 
 
         public Poll build() {

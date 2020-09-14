@@ -20,11 +20,11 @@ public class PollDao {
         String timestamp = TimeStamp.getTimeStamp();
 
         Poll poll = Poll.builder()
-                .setSummary(summary)
-                .setCreated_time(timestamp)
-                .setUpdated_time(timestamp)
-                .setIsPublic(isPublic)
-                .setBrukar(brukar)
+                .summary(summary)
+                .created_time(timestamp)
+                .updated_time(timestamp)
+                .isPublic(isPublic)
+                .brukar(brukar)
                 .build();
 
         entityManager.getTransaction().begin();

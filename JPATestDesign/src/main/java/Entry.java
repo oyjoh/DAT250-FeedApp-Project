@@ -23,6 +23,10 @@ public class Entry {
     private Brukar brukar;
 
 
+    public Long getEntry_id() {
+        return entry_id;
+    }
+
     public Poll getPoll() {
         return poll;
     }
@@ -90,28 +94,28 @@ public class Entry {
 
         private String time_submitted;
 
-        public EntryBuilder setPoll(final Poll poll) {
+        public EntryBuilder poll(final Poll poll) {
             this.poll = poll;
             return this;
         }
 
-        public EntryBuilder setBrukar(final Brukar user) {
+        public EntryBuilder brukar(final Brukar user) {
             this.user = user;
             return this;
         }
 
 
-        public EntryBuilder setValue(final Value value) {
+        public EntryBuilder value(final Value value) {
             this.value = value;
             return this;
         }
 
-        public EntryBuilder setNumber(final Integer number) {
+        public EntryBuilder number(final Integer number) {
             this.number = number;
             return this;
         }
 
-        public EntryBuilder setTime_submitted(final String time_submitted) {
+        public EntryBuilder time_submitted(final String time_submitted) {
             this.time_submitted = time_submitted;
             return this;
         }

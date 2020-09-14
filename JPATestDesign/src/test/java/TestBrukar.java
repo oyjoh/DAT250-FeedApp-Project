@@ -17,6 +17,7 @@ public class TestBrukar {
     EntityManager em;
     BrukarDao brukarDao;
     PollDao pollDao;
+    EntryDao entryDao;
 
     @Before
     public void setUp() {
@@ -24,6 +25,7 @@ public class TestBrukar {
         em = factory.createEntityManager();
         brukarDao = new BrukarDao(em);
         pollDao = new PollDao(em);
+        entryDao = new EntryDao(em);
     }
 
     @Test
@@ -37,7 +39,7 @@ public class TestBrukar {
     public void testUpdateBrukar() {
         Brukar brukar = brukarDao.addBrukar("beforname", "befor@email.com", "beforepwd");
         System.out.println(brukar.getName());
-        EntryUpdateRequest bur = EntryUpdateRequest.builder()
+        BrukarUpdateRequest  bur = BrukarUpdateRequest.builder()
                 .name("aftername")
                 .email("after@email.com")
                 .pwd("afterpwd")
@@ -80,9 +82,40 @@ public class TestBrukar {
         Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
         Poll poll = pollDao.addPoll("beforeSummary", brukar, Boolean.TRUE);
         pollDao.deletePoll(poll.getPoll_id());
-        assertNull(pollDao.getPollById(brukar.getId()));
+        assertNull(pollDao.getPollById(poll.getPoll_id()));
     }
 
+    //Entry -- TESTS
+    @Test
+    public void testAddEntry(){
+        Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
+        Poll poll = pollDao.addPoll("this is summary", brukar, true);
+        int lengthBefore = entryDao.getAllEntries().size();
+        Entry entry = entryDao.addEntry(Value.NO, 1, brukar, poll);
+        assertEquals(lengthBefore + 1, entryDao.getAllEntries().size());
+    }
+
+    @Test
+    public void testUpdateEntry(){
+        Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
+        Poll poll = pollDao.addPoll("beforeSummary", brukar, Boolean.TRUE);
+        Entry entry = entryDao.addEntry(Value.NO, 1, brukar, poll);
+        EntryUpdateRequest eur = EntryUpdateRequest.builder()
+                .number(2)
+                .value(Value.YES)
+                .build();
+        entryDao.updateEntry(entry.getEntry_id(), eur);
+        assertEquals(entryDao.getEntryById(entry.getEntry_id()).getNumber(), Integer.valueOf(2));
+    }
+
+    @Test
+    public void testDeleteEntry(){
+        Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
+        Poll poll = pollDao.addPoll("beforeSummary", brukar, Boolean.TRUE);
+        Entry entry = entryDao.addEntry(Value.NO, 1, brukar, poll);
+        entryDao.deleteEntry(entry.getEntry_id());
+        assertNull(entryDao.getEntryById(entry.getEntry_id()));
+    }
 
     public static Map<String, Object> configOverrideFromEnv() {
         Map<String, String> env = System.getenv();
