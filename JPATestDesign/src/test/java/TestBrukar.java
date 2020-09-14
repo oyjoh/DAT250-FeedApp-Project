@@ -64,10 +64,23 @@ public class TestBrukar {
     }
 
     @Test
-    public void updatePoll(){
+    public void testUpdatePoll(){
         Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
-        Poll poll = pollDao.addPoll("beforeSummary", brukar, true);
-        //TODO pollDao.updatePoll(poll.getPoll_id(), );
+        Poll poll = pollDao.addPoll("beforeSummary", brukar, Boolean.TRUE);
+        PollUpdateRequest pur = PollUpdateRequest.builder()
+                .isPublic(Boolean.FALSE)
+                .summary("afterSummary")
+                .build();
+        pollDao.updatePoll(poll.getPoll_id(), pur);
+        assertEquals(pollDao.getPollById(poll.getPoll_id()).getSummary(), "afterSummary");
+    }
+
+    @Test
+    public void testDeletePoll(){
+        Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
+        Poll poll = pollDao.addPoll("beforeSummary", brukar, Boolean.TRUE);
+        pollDao.deletePoll(poll.getPoll_id());
+        assertNull(pollDao.getPollById(brukar.getId()));
     }
 
 

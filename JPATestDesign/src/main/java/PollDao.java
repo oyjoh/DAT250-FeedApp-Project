@@ -1,7 +1,6 @@
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
-import java.util.Map;
 
 public class PollDao {
 
@@ -17,7 +16,7 @@ public class PollDao {
         return query.getResultList();
     }
 
-    public Poll addPoll (String summary, Brukar brukar, Boolean isPublic) {
+    public Poll addPoll(String summary, Brukar brukar, Boolean isPublic) {
         String timestamp = TimeStamp.getTimeStamp();
 
         Poll poll = Poll.builder()
@@ -58,9 +57,7 @@ public class PollDao {
         entityManager.getTransaction().commit();
     }
 
-
-
-    private Poll getPollById(Long pollId) {
+    public Poll getPollById(Long pollId) {
         return entityManager.find(Poll.class, pollId);
     }
 

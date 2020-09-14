@@ -31,7 +31,7 @@ public class PollUpdateRequest {
             return this;
         }
 
-        public PollUpdateRequestBuilder email(Boolean isPublic) {
+        public PollUpdateRequestBuilder isPublic(Boolean isPublic) {
             this.isPublic = isPublic;
             return this;
         }
