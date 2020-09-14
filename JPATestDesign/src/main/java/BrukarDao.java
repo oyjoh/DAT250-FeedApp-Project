@@ -2,15 +2,10 @@ import com.lambdaworks.crypto.SCryptUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.security.SecureRandom;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class BrukarDao implements IBrukarDao{
-    private final Random RANDOM = new SecureRandom();
     private EntityManager entityManager;
 
     public BrukarDao (EntityManager entityManager) {
