@@ -17,7 +17,7 @@ public class PollDao {
         return query.getResultList();
     }
 
-    public Poll addPoll (String summary, Brukar brukar, boolean isPublic) {
+    public Poll addPoll (String summary, Brukar brukar, Boolean isPublic) {
         String timestamp = TimeStamp.getTimeStamp();
 
         Poll poll = Poll.builder()
@@ -42,19 +42,13 @@ public class PollDao {
         entityManager.getTransaction().commit();
     }
 
-    public void updatePoll(Long pollId, Map<String, String> inputMap) {
+    public void updatePoll(Long pollId, PollUpdateRequest pur) {
         String updatedTimestamp = TimeStamp.getTimeStamp();
         Poll poll = getPollById(pollId);
 
         // Iterate over the input to see what we want to update
-        for (Map.Entry<String, String> e : inputMap.entrySet()) {
-            switch (e.getKey()) {
-                case "summary" : poll.setSummary(e.getValue());
-                break;
-                case "isPublic" : poll.setIsPublic(e.getValue().equals("true"));
-                break;
-            }
-        }
+        if (pur.getSummary() != null) poll.setSummary(pur.getSummary());
+        if (pur.getIsPublic() != null) poll.setIsPublic(pur.getIsPublic());
 
         poll.setUpdated_time(updatedTimestamp);
 
@@ -62,8 +56,9 @@ public class PollDao {
         entityManager.getTransaction().begin();
         entityManager.persist(poll);
         entityManager.getTransaction().commit();
-
     }
+
+
 
     private Poll getPollById(Long pollId) {
         return entityManager.find(Poll.class, pollId);

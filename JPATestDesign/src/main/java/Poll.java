@@ -15,7 +15,7 @@ public class Poll {
     private String created_time;
     private String updated_time;
     private String joinKey;
-    private boolean isPublic;
+    private Boolean isPublic;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Brukar brukar;
@@ -62,12 +62,12 @@ public class Poll {
     public String getJoinKey() { return joinKey; }
     public void setJoinKey(String joinKey) { this.joinKey = joinKey; }
 
-    public boolean getIsPublic() { return isPublic; }
-    public void setIsPublic(boolean isPublic) { this.isPublic = isPublic; }
+    public Boolean getIsPublic() { return isPublic; }
+    public void setIsPublic(Boolean isPublic) { this.isPublic = isPublic; }
 
     protected Poll(){}
 
-    private Poll(Brukar brukar, String summary, String created_time, String updated_time, boolean isPublic) {
+    private Poll(Brukar brukar, String summary, String created_time, String updated_time, Boolean isPublic) {
         this.summary = summary;
         this.created_time = created_time;
         this.updated_time = updated_time;
@@ -85,7 +85,7 @@ public class Poll {
         private String summary;
         private String created_time;
         private String updated_time;
-        private boolean isPublic;
+        private Boolean isPublic;
 
 
         public PollBuilder setBrukar(final Brukar brukar) {
@@ -108,7 +108,7 @@ public class Poll {
             return this;
         }
 
-        public PollBuilder setIsPublic(final boolean isPublic) {
+        public PollBuilder setIsPublic(final Boolean isPublic) {
             this.isPublic = isPublic;
             return this;
         }
