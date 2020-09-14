@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Poll.findAll", query="SELECT p FROM Poll p"),
+})
 public class Poll {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,6 +14,7 @@ public class Poll {
     private String summary;
     private String created_time;
     private String updated_time;
+    private String joinKey;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Brukar brukar;
@@ -53,6 +57,9 @@ public class Poll {
     public void setUpdated_time(String updated_time) {
         this.updated_time = updated_time;
     }
+
+    public String getJoinKey() { return joinKey; }
+    public void setJoinKey(String joinKey) { this.joinKey = joinKey; }
 
     protected Poll(){}
 

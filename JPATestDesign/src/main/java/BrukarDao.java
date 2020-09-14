@@ -26,11 +26,8 @@ public class BrukarDao implements IBrukarDao{
 
     @Override
     public void updateBrukar(Long brukarId, Map<String, String> inputMap) {
-        // Create UpdatedTimeStamp
-        Date date = new Date();
-        long updateTime = date.getTime();
-        String updatedTimestamp = new Timestamp(updateTime).toString();
-        Brukar brukar = getBrukarByID(brukarId);
+        String updatedTimestamp = TimeStamp.getTimeStamp();
+        Brukar brukar = getBrukarById(brukarId);
 
         // Iterate over the input to see what we want to update
         for (Map.Entry<String, String> e : inputMap.entrySet()) {
@@ -55,7 +52,7 @@ public class BrukarDao implements IBrukarDao{
 
     @Override
     public void deleteBrukar(Long brukarId) {
-        Brukar brukar = getBrukarByID(brukarId);
+        Brukar brukar = getBrukarById(brukarId);
         entityManager.getTransaction().begin();
         entityManager.remove(brukar);
         entityManager.getTransaction().commit();
@@ -63,11 +60,9 @@ public class BrukarDao implements IBrukarDao{
 
     public Brukar addBrukar(String name, String email, String pwd) {
         // Create TimeStamp
-        Date date = new Date();
-        long time = date.getTime();
-        String timestamp = new Timestamp(time).toString();
         // Create hash
         String hash = getSHA256Hash(pwd);
+        String timestamp = TimeStamp.getTimeStamp();
 
         Brukar brukar = Brukar.builder()
                 .setName(name)
@@ -85,17 +80,12 @@ public class BrukarDao implements IBrukarDao{
         return brukar;
     }
 
-    private Brukar getBrukarByID(Long brukarId) {
-        Brukar brukar = entityManager.find(Brukar.class, brukarId);
-        /* TODO remove this?
-        // Find the user by using a named query
-        Query query = entityManager.createNamedQuery("Brukar.findById", Brukar.class);
-        query.setParameter("brukar_id", brukarId);
-        // TODO rather use query.getResultList()?
-        return (Brukar) query.getSingleResult();
+    public List<Poll> getAllPollsByUser(Long brukarId) {
+        return getBrukarById(brukarId).getPolls();
+    }
 
-        */
-        return brukar;
+    private Brukar getBrukarById(Long brukarId) {
+        return entityManager.find(Brukar.class, brukarId);
     }
 
     /**

@@ -27,16 +27,23 @@ public class Main {
 
 
         // Create Poll
+        /*
         Poll poll = Poll.builder()
                 .setSummary("ThisIsASummary")
                 .setCreated_time("ThisIsCreatedTime")
                 .setUpdated_time("ThisIsUpdatedTime")
                 .setBrukar(brukar)
                 .build();
+
+         */
+        PollDao pollDao = new PollDao(em);
+        Poll poll = pollDao.addPoll("ThisIsSummary", brukar);
         List<Poll> pollList = new ArrayList<>();
         pollList.add(poll);
         // Add the poll to the user
         brukar.setPolls(pollList);
+
+
         // Create an entry in the poll
         List<Entry> entryList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -92,7 +99,7 @@ public class Main {
     }
 
     private static void testUpdateBrukar(BrukarDao brukarDao) {
-        Long brukarId = 501L;
+        Long brukarId = 101L;
         Map<String, String> map = new HashMap<>();
         String newName = "NEWNAME MC.NEWNAME";
         map.put("name", newName);
