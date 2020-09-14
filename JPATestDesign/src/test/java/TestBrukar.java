@@ -35,7 +35,7 @@ public class TestBrukar {
     public void testUpdateBrukar() {
         Brukar brukar = brukarDao.addBrukar("beforname", "befor@email.com", "beforepwd");
         System.out.println(brukar.getName());
-        BrukarUpdateRequest bur = BrukarUpdateRequest.builder()
+        EntryUpdateRequest bur = EntryUpdateRequest.builder()
                 .name("aftername")
                 .email("after@email.com")
                 .pwd("afterpwd")
