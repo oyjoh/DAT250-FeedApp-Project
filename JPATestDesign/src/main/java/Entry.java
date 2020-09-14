@@ -13,7 +13,7 @@ public class Entry {
     private Long entry_id;
 
     private Value value;
-    private int number;
+    private Integer number;
 
     private String time_submitted;
     @ManyToOne(fetch = FetchType.EAGER)
@@ -44,10 +44,10 @@ public class Entry {
         this.value = value;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 
@@ -60,7 +60,7 @@ public class Entry {
 
     protected Entry(){}
 
-    private Entry(Poll poll, Brukar brukar, Value value, int number, String time_submitted) {
+    private Entry(Poll poll, Brukar brukar, Value value, Integer number, String time_submitted) {
         this.poll = poll;
         this.brukar = brukar;
         this.value = value;
@@ -86,7 +86,7 @@ public class Entry {
         private Brukar user;
 
         private Value value;
-        private int number;
+        private Integer number;
 
         private String time_submitted;
 
@@ -106,7 +106,7 @@ public class Entry {
             return this;
         }
 
-        public EntryBuilder setNumber(final int number) {
+        public EntryBuilder setNumber(final Integer number) {
             this.number = number;
             return this;
         }
