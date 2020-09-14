@@ -19,17 +19,13 @@ public class Main {
 
         EntityManager em = factory.createEntityManager();
 
-        em.getTransaction().begin();
 
         // Create User
-        Brukar brukar = Brukar.builder()
-                .setName("Gunnar")
-                .setEmail("user@mail.com")
-                .setHash("ThisIsTheHash")
-                .setSalt("ThisIsTheSalt")
-                .setCreated_time("ThisIsCreatedTime")
-                .setUpdated_time("ThisIsUpdatedTime")
-                .build();
+        BrukarDao brukarDao = new BrukarDao(em);
+        Brukar brukar = brukarDao.addBrukar("Øyvind", "ø@mail.com", "passord1234");
+
+
+
         // Create Poll
         Poll poll = Poll.builder()
                 .setSummary("ThisIsASummary")
@@ -57,7 +53,8 @@ public class Main {
         poll.setEntries(entryList);
         // Add the entry to the poll
 
-        em.persist(brukar);
+        em.getTransaction().begin();
+        //em.persist(brukar);
         em.persist(poll);
 
 
@@ -72,7 +69,39 @@ public class Main {
             System.out.println(entry.toString());
         }
 
+
+        testUpdateBrukar(brukarDao);
+
+        // Create user to be deleted
+        Brukar brukarToBeDeleted = brukarDao.addBrukar("JOHANNESEN", "DELETE@mail.com", "plizdontdelete");
+        Brukar lastBrukar = testGetAllBrukars(brukarDao);
+        System.out.println("Last user: " + lastBrukar + ", this will be deleted");
+        testDeleteBrukar(brukarDao, lastBrukar.getId());
+
         em.close();
+
+    }
+
+    // TODO Create JUnit tests
+    private static Brukar testGetAllBrukars(BrukarDao brukarDao) {
+        List<Brukar> allBrukars = brukarDao.getAllBrukars();
+        for (Brukar b : allBrukars) {
+            System.out.println(b);
+        }
+        return allBrukars.get(allBrukars.size()-1);
+    }
+
+    private static void testUpdateBrukar(BrukarDao brukarDao) {
+        Long brukarId = 501L;
+        Map<String, String> map = new HashMap<>();
+        String newName = "NEWNAME MC.NEWNAME";
+        map.put("name", newName);
+        brukarDao.updateBrukar(brukarId, map);
+    }
+
+    private static void testDeleteBrukar(BrukarDao brukarDao, Long id) {
+        brukarDao.deleteBrukar(id);
+
     }
 
     public static Map<String, Object> configOverrideFromEnv() {

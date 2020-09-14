@@ -1,9 +1,15 @@
+import jdk.jfr.Name;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 //@Table(name = "user")
+@NamedQueries({
+        @NamedQuery(name="Brukar.findAll", query="SELECT b FROM Brukar b"),
+        @NamedQuery(name="Brukar.findById", query = "SELECT b FROM Brukar b WHERE b.user_id = :brukar_id")
+})
 public class Brukar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,7 +18,6 @@ public class Brukar {
     private String name;
     private String email;
     private String hash;
-    private String salt;
     private String created_time;
     private String updated_time;
 
@@ -26,6 +31,8 @@ public class Brukar {
     public void setPolls(List<Poll> polls) {
         this.polls = polls;
     }
+
+    public Long getId() { return user_id; }
 
     public String getName() { return name; }
     public void setName(String name) {
@@ -42,11 +49,6 @@ public class Brukar {
         this.hash = hash;
     }
 
-    public String getSalt() { return salt; }
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
     public String getCreated_time() { return created_time; }
     public void setCreated_time(String created_time) {
         this.created_time = created_time;
@@ -57,13 +59,16 @@ public class Brukar {
         this.updated_time = updated_time;
     }
 
+    public String toString() {
+        return "id: " + user_id + ", name = " + name;
+    }
+
     protected Brukar(){}
 
-    private Brukar(String name, String email, String hash, String salt, String created_time, String updated_time) {
+    private Brukar(String name, String email, String hash, String created_time, String updated_time) {
         this.name = name;
         this.email = email;
         this.hash = hash;
-        this.salt = salt;
         this.updated_time = updated_time;
         this.created_time = created_time;
     }
@@ -77,7 +82,6 @@ public class Brukar {
         private String name;
         private String email;
         private String hash;
-        private String salt;
         private String created_time;
         private String updated_time;
 
@@ -96,11 +100,6 @@ public class Brukar {
             return this;
         }
 
-        public BrukarBuilder setSalt(final String salt) {
-            this.salt = salt;
-            return this;
-        }
-
         public BrukarBuilder setCreated_time(final String created_time) {
             this.created_time = created_time;
             return this;
@@ -113,7 +112,7 @@ public class Brukar {
 
 
         public Brukar build() {
-            return new Brukar(name, email, hash, salt, created_time, updated_time);
+            return new Brukar(name, email, hash, created_time, updated_time);
         }
 
     }
