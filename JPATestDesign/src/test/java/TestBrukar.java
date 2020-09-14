@@ -16,12 +16,14 @@ public class TestBrukar {
     private static EntityManagerFactory factory;
     EntityManager em;
     BrukarDao brukarDao;
+    PollDao pollDao;
 
     @Before
     public void setUp() {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, configOverrideFromEnv());
         em = factory.createEntityManager();
         brukarDao = new BrukarDao(em);
+        pollDao = new PollDao(em);
     }
 
     @Test
@@ -50,6 +52,22 @@ public class TestBrukar {
         Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
         brukarDao.deleteBrukar(brukar.getId());
         assertNull(brukarDao.getBrukarById(brukar.getId()));
+    }
+
+    //POLL -- TESTS
+    @Test
+    public void testAddPoll(){
+        Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
+        int lengthBefore = pollDao.getAllPolls().size();
+        Poll poll = pollDao.addPoll("this is summary", brukar, true);
+        assertEquals(lengthBefore + 1, pollDao.getAllPolls().size());
+    }
+
+    @Test
+    public void updatePoll(){
+        Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
+        Poll poll = pollDao.addPoll("beforeSummary", brukar, true);
+        //TODO pollDao.updatePoll(poll.getPoll_id(), );
     }
 
 
