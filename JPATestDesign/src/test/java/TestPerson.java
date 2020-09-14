@@ -10,12 +10,12 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class TestBrukar {
+public class TestPerson {
     private static final String PERSISTENCE_UNIT_NAME = "poll";
     private static final String ENVIRONMENT_JDBC_URL = "jdbc_urldb";
     private static EntityManagerFactory factory;
     EntityManager em;
-    BrukarDao brukarDao;
+    PersonDao personDao;
     PollDao pollDao;
     EntryDao entryDao;
 
@@ -23,52 +23,52 @@ public class TestBrukar {
     public void setUp() {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, configOverrideFromEnv());
         em = factory.createEntityManager();
-        brukarDao = new BrukarDao(em);
+        personDao = new PersonDao(em);
         pollDao = new PollDao(em);
         entryDao = new EntryDao(em);
     }
 
     @Test
     public void testAddUserAddsOneUser() {
-        int startLength = brukarDao.getAllBrukars().size();
-        Brukar brukar = brukarDao.addBrukar("Test", "test@mail", "testpwd");
-        assertEquals(startLength + 1, brukarDao.getAllBrukars().size());
+        int startLength = personDao.getAllPersons().size();
+        Person person = personDao.addPerson("Test", "test@mail", "testpwd");
+        assertEquals(startLength + 1, personDao.getAllPersons().size());
     }
 
     @Test
-    public void testUpdateBrukar() {
-        Brukar brukar = brukarDao.addBrukar("beforname", "befor@email.com", "beforepwd");
-        System.out.println(brukar.getName());
-        BrukarUpdateRequest  bur = BrukarUpdateRequest.builder()
+    public void testUpdatePerson() {
+        Person person = personDao.addPerson("beforname", "befor@email.com", "beforepwd");
+        System.out.println(person.getName());
+        PersonUpdateRequest bur = PersonUpdateRequest.builder()
                 .name("aftername")
                 .email("after@email.com")
                 .pwd("afterpwd")
                 .build();
-        brukarDao.updateBrukar(brukar.getId(), bur);
-        System.out.println(brukarDao.getBrukarById(brukar.getId()).getName());
-        assertEquals(brukarDao.getBrukarById(brukar.getId()).getName(), "aftername");
+        personDao.updatePerson(person.getId(), bur);
+        System.out.println(personDao.getPersonById(person.getId()).getName());
+        assertEquals(personDao.getPersonById(person.getId()).getName(), "aftername");
     }
 
     @Test
-    public void testDeleteBrukar() {
-        Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
-        brukarDao.deleteBrukar(brukar.getId());
-        assertNull(brukarDao.getBrukarById(brukar.getId()));
+    public void testDeletePerson() {
+        Person person = personDao.addPerson("exists", "exist@email.com", "existpwd");
+        personDao.deletePerson(person.getId());
+        assertNull(personDao.getPersonById(person.getId()));
     }
 
     //POLL -- TESTS
     @Test
     public void testAddPoll(){
-        Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
+        Person person = personDao.addPerson("exists", "exist@email.com", "existpwd");
         int lengthBefore = pollDao.getAllPolls().size();
-        Poll poll = pollDao.addPoll("this is summary", brukar, true);
+        Poll poll = pollDao.addPoll("this is summary", person, true);
         assertEquals(lengthBefore + 1, pollDao.getAllPolls().size());
     }
 
     @Test
     public void testUpdatePoll(){
-        Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
-        Poll poll = pollDao.addPoll("beforeSummary", brukar, Boolean.TRUE);
+        Person person = personDao.addPerson("exists", "exist@email.com", "existpwd");
+        Poll poll = pollDao.addPoll("beforeSummary", person, Boolean.TRUE);
         PollUpdateRequest pur = PollUpdateRequest.builder()
                 .isPublic(Boolean.FALSE)
                 .summary("afterSummary")
@@ -79,8 +79,8 @@ public class TestBrukar {
 
     @Test
     public void testDeletePoll(){
-        Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
-        Poll poll = pollDao.addPoll("beforeSummary", brukar, Boolean.TRUE);
+        Person person = personDao.addPerson("exists", "exist@email.com", "existpwd");
+        Poll poll = pollDao.addPoll("beforeSummary", person, Boolean.TRUE);
         pollDao.deletePoll(poll.getPoll_id());
         assertNull(pollDao.getPollById(poll.getPoll_id()));
     }
@@ -88,18 +88,18 @@ public class TestBrukar {
     //Entry -- TESTS
     @Test
     public void testAddEntry(){
-        Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
-        Poll poll = pollDao.addPoll("this is summary", brukar, true);
+        Person person = personDao.addPerson("exists", "exist@email.com", "existpwd");
+        Poll poll = pollDao.addPoll("this is summary", person, true);
         int lengthBefore = entryDao.getAllEntries().size();
-        Entry entry = entryDao.addEntry(Value.NO, 1, brukar, poll);
+        Entry entry = entryDao.addEntry(Value.NO, 1, person, poll);
         assertEquals(lengthBefore + 1, entryDao.getAllEntries().size());
     }
 
     @Test
     public void testUpdateEntry(){
-        Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
-        Poll poll = pollDao.addPoll("beforeSummary", brukar, Boolean.TRUE);
-        Entry entry = entryDao.addEntry(Value.NO, 1, brukar, poll);
+        Person person = personDao.addPerson("exists", "exist@email.com", "existpwd");
+        Poll poll = pollDao.addPoll("beforeSummary", person, Boolean.TRUE);
+        Entry entry = entryDao.addEntry(Value.NO, 1, person, poll);
         EntryUpdateRequest eur = EntryUpdateRequest.builder()
                 .number(2)
                 .value(Value.YES)
@@ -110,9 +110,9 @@ public class TestBrukar {
 
     @Test
     public void testDeleteEntry(){
-        Brukar brukar = brukarDao.addBrukar("exists", "exist@email.com", "existpwd");
-        Poll poll = pollDao.addPoll("beforeSummary", brukar, Boolean.TRUE);
-        Entry entry = entryDao.addEntry(Value.NO, 1, brukar, poll);
+        Person person = personDao.addPerson("exists", "exist@email.com", "existpwd");
+        Poll poll = pollDao.addPoll("beforeSummary", person, Boolean.TRUE);
+        Entry entry = entryDao.addEntry(Value.NO, 1, person, poll);
         entryDao.deleteEntry(entry.getEntry_id());
         assertNull(entryDao.getEntryById(entry.getEntry_id()));
     }

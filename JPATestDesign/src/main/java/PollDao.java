@@ -16,7 +16,7 @@ public class PollDao {
         return query.getResultList();
     }
 
-    public Poll addPoll(String summary, Brukar brukar, Boolean isPublic) {
+    public Poll addPoll(String summary, Person person, Boolean isPublic) {
         String timestamp = TimeStamp.getTimeStamp();
 
         Poll poll = Poll.builder()
@@ -24,7 +24,7 @@ public class PollDao {
                 .created_time(timestamp)
                 .updated_time(timestamp)
                 .isPublic(isPublic)
-                .brukar(brukar)
+                .person(person)
                 .build();
 
         entityManager.getTransaction().begin();

@@ -1,5 +1,3 @@
-import jdk.jfr.Name;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +5,10 @@ import java.util.List;
 @Entity
 //@Table(name = "user")
 @NamedQueries({
-        @NamedQuery(name="Brukar.findAll", query="SELECT b FROM Brukar b"),
-        @NamedQuery(name="Brukar.findById", query = "SELECT b FROM Brukar b WHERE b.user_id = :brukar_id")
+        @NamedQuery(name="Person.findAll", query="SELECT b FROM Person b"),
+        @NamedQuery(name="Person.findById", query = "SELECT b FROM Person b WHERE b.user_id = :person_id")
 })
-public class Brukar {
+public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
@@ -21,7 +19,7 @@ public class Brukar {
     private String created_time;
     private String updated_time;
 
-    @OneToMany(mappedBy = "brukar")
+    @OneToMany(mappedBy = "person")
     private List<Poll> polls = new ArrayList<>();
 
 
@@ -63,9 +61,9 @@ public class Brukar {
         return "id: " + user_id + ", name = " + name;
     }
 
-    protected Brukar(){}
+    protected Person(){}
 
-    private Brukar(String name, String email, String hash, String created_time, String updated_time) {
+    private Person(String name, String email, String hash, String created_time, String updated_time) {
         this.name = name;
         this.email = email;
         this.hash = hash;
@@ -73,11 +71,11 @@ public class Brukar {
         this.created_time = created_time;
     }
 
-    public static BrukarBuilder builder() {
-        return new BrukarBuilder();
+    public static PersonBuilder builder() {
+        return new PersonBuilder();
     }
 
-    public static class BrukarBuilder {
+    public static class PersonBuilder {
 
         private String name;
         private String email;
@@ -85,34 +83,34 @@ public class Brukar {
         private String created_time;
         private String updated_time;
 
-        public BrukarBuilder name(final String name) {
+        public PersonBuilder name(final String name) {
             this.name = name;
             return this;
         }
 
-        public BrukarBuilder email(final String email) {
+        public PersonBuilder email(final String email) {
             this.email = email;
             return this;
         }
 
-        public BrukarBuilder hash(final String hash) {
+        public PersonBuilder hash(final String hash) {
             this.hash = hash;
             return this;
         }
 
-        public BrukarBuilder created_time(final String created_time) {
+        public PersonBuilder created_time(final String created_time) {
             this.created_time = created_time;
             return this;
         }
 
-        public BrukarBuilder updated_time(final String updated_time) {
+        public PersonBuilder updated_time(final String updated_time) {
             this.updated_time = updated_time;
             return this;
         }
 
 
-        public Brukar build() {
-            return new Brukar(name, email, hash, created_time, updated_time);
+        public Person build() {
+            return new Person(name, email, hash, created_time, updated_time);
         }
 
     }

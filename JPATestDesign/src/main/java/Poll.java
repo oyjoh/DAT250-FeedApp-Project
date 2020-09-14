@@ -18,7 +18,7 @@ public class Poll {
     private Boolean isPublic;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Brukar brukar;
+    private Person person;
 
     @OneToMany(mappedBy = "poll")
     private List<Entry> entries = new ArrayList<>();
@@ -28,12 +28,12 @@ public class Poll {
         return poll_id;
     }
 
-    public Brukar getBrukar() {
-        return brukar;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setBrukar(Brukar brukar) {
-        this.brukar = brukar;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public List<Entry> getEntries() {
@@ -87,11 +87,11 @@ public class Poll {
     protected Poll() {
     }
 
-    private Poll(Brukar brukar, String summary, String created_time, String updated_time, Boolean isPublic) {
+    private Poll(Person person, String summary, String created_time, String updated_time, Boolean isPublic) {
         this.summary = summary;
         this.created_time = created_time;
         this.updated_time = updated_time;
-        this.brukar = brukar;
+        this.person = person;
         this.isPublic = isPublic;
     }
 
@@ -101,15 +101,15 @@ public class Poll {
 
     public static class PollBuilder {
 
-        private Brukar brukar;
+        private Person person;
         private String summary;
         private String created_time;
         private String updated_time;
         private Boolean isPublic;
 
 
-        public PollBuilder brukar(final Brukar brukar) {
-            this.brukar = brukar;
+        public PollBuilder person(final Person person) {
+            this.person = person;
             return this;
         }
 
@@ -135,7 +135,7 @@ public class Poll {
 
 
         public Poll build() {
-            return new Poll(brukar, summary, created_time, updated_time, isPublic);
+            return new Poll(person, summary, created_time, updated_time, isPublic);
         }
 
     }

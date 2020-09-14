@@ -45,13 +45,13 @@ public class EntryDao {
         entityManager.getTransaction().commit();
     }
 
-    public Entry addEntry(Value value, Integer number, Brukar brukar, Poll poll) {
+    public Entry addEntry(Value value, Integer number, Person person, Poll poll) {
         String timestamp = TimeStamp.getTimeStamp();
         Entry entry = Entry.builder()
                 .number(number)
                 .value(value)
                 .time_submitted(timestamp)
-                .brukar(brukar)
+                .person(person)
                 .poll(poll)
                 .build();
 

@@ -5,82 +5,79 @@ import javax.persistence.Query;
 import java.util.List;
 import java.util.Map;
 
-public class BrukarDao implements IBrukarDao{
+public class PersonDao {
     private EntityManager entityManager;
 
-    public BrukarDao(EntityManager entityManager) {
+    public PersonDao(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
-    @Override
     @SuppressWarnings("unchecked")
-    public List<Brukar> getAllBrukars() {
-        Query query = entityManager.createNamedQuery("Brukar.findAll", Brukar.class);
+    public List<Person> getAllPersons() {
+        Query query = entityManager.createNamedQuery("Person.findAll", Person.class);
         return query.getResultList();
     }
 
-    @Override
-    public void updateBrukar(Long brukarId, Map<String, String> inputMap) {
+    public void updatePerson(Long personId, Map<String, String> inputMap) {
         String updatedTimestamp = TimeStamp.getTimeStamp();
-        Brukar brukar = getBrukarById(brukarId);
+        Person person = getPersonById(personId);
 
         // Iterate over the input to see what we want to update
         for (Map.Entry<String, String> e : inputMap.entrySet()) {
             switch (e.getKey()) {
                 case "name":
-                    brukar.setName(e.getValue());
+                    person.setName(e.getValue());
                     break;
                 case "email":
-                    brukar.setEmail(e.getValue());
+                    person.setEmail(e.getValue());
                     break;
                 case "hash":
-                    brukar.setHash(getSHA256Hash(e.getValue()));
+                    person.setHash(getSHA256Hash(e.getValue()));
                     break;
             }
         }
-        brukar.setUpdated_time(updatedTimestamp);
+        person.setUpdated_time(updatedTimestamp);
 
         // Update the database
         entityManager.getTransaction().begin();
-        //entityManager.merge(brukar);
-        entityManager.persist(brukar);
+        //entityManager.merge(person);
+        entityManager.persist(person);
         entityManager.getTransaction().commit();
 
     }
 
-    public void updateBrukar(Long brukarId, BrukarUpdateRequest bur) {
+    public void updatePerson(Long personId, PersonUpdateRequest bur) {
         String updatedTimestamp = TimeStamp.getTimeStamp();
-        Brukar brukar = getBrukarById(brukarId);
+        Person person = getPersonById(personId);
 
         // Iterate over the input to see what we want to update
-        if (bur.getName() != null) brukar.setName(bur.getName());
-        if (bur.getEmail() != null) brukar.setEmail(bur.getEmail());
-        if (bur.getPwd() != null) brukar.setHash(getSHA256Hash(bur.getPwd()));
-        brukar.setUpdated_time(updatedTimestamp);
+        if (bur.getName() != null) person.setName(bur.getName());
+        if (bur.getEmail() != null) person.setEmail(bur.getEmail());
+        if (bur.getPwd() != null) person.setHash(getSHA256Hash(bur.getPwd()));
+        person.setUpdated_time(updatedTimestamp);
 
         // Update the database
         entityManager.getTransaction().begin();
-        //entityManager.merge(brukar);
-        entityManager.persist(brukar);
+        //entityManager.merge(person);
+        entityManager.persist(person);
         entityManager.getTransaction().commit();
 
     }
-
-    @Override
-    public void deleteBrukar(Long brukarId) {
-        Brukar brukar = getBrukarById(brukarId);
+    
+    public void deletePerson(Long personId) {
+        Person person = getPersonById(personId);
         entityManager.getTransaction().begin();
-        entityManager.remove(brukar);
+        entityManager.remove(person);
         entityManager.getTransaction().commit();
     }
 
-    public Brukar addBrukar(String name, String email, String pwd) {
+    public Person addPerson(String name, String email, String pwd) {
         // Create TimeStamp
         // Create hash
         String hash = getSHA256Hash(pwd);
         String timestamp = TimeStamp.getTimeStamp();
 
-        Brukar brukar = Brukar.builder()
+        Person person = Person.builder()
                 .name(name)
                 .email(email)
                 .hash(hash)
@@ -90,18 +87,18 @@ public class BrukarDao implements IBrukarDao{
 
         // Add the new user to the database
         entityManager.getTransaction().begin();
-        entityManager.persist(brukar);
+        entityManager.persist(person);
         entityManager.getTransaction().commit();
 
-        return brukar;
+        return person;
     }
 
-    public List<Poll> getAllPollsByUser(Long brukarId) {
-        return getBrukarById(brukarId).getPolls();
+    public List<Poll> getAllPollsByUser(Long personId) {
+        return getPersonById(personId).getPolls();
     }
 
-    public Brukar getBrukarById(Long brukarId) {
-        return entityManager.find(Brukar.class, brukarId);
+    public Person getPersonById(Long personId) {
+        return entityManager.find(Person.class, personId);
     }
 
     /**

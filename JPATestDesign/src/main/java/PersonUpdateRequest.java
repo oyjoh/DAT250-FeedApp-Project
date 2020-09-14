@@ -1,4 +1,4 @@
-public class BrukarUpdateRequest {
+public class PersonUpdateRequest {
     private String name;
     private String email;
     private String pwd;
@@ -15,41 +15,41 @@ public class BrukarUpdateRequest {
         return pwd;
     }
 
-    protected BrukarUpdateRequest() {
+    protected PersonUpdateRequest() {
     }
 
-    private BrukarUpdateRequest(String name, String email, String pwd) {
+    private PersonUpdateRequest(String name, String email, String pwd) {
         this.name = name;
         this.email = email;
         this.pwd = pwd;
     }
 
-    public static BrukarUpdateRequestBuilder builder() {
-        return new BrukarUpdateRequestBuilder();
+    public static PersonUpdateRequestBuilder builder() {
+        return new PersonUpdateRequestBuilder();
     }
 
-    public static class BrukarUpdateRequestBuilder {
+    public static class PersonUpdateRequestBuilder {
         private String name;
         private String email;
         private String pwd;
 
-        public BrukarUpdateRequestBuilder name(String name) {
+        public PersonUpdateRequestBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public BrukarUpdateRequestBuilder email(String email) {
+        public PersonUpdateRequestBuilder email(String email) {
             this.email = email;
             return this;
         }
 
-        public BrukarUpdateRequestBuilder pwd(String pwd) {
+        public PersonUpdateRequestBuilder pwd(String pwd) {
             this.pwd = pwd;
             return this;
         }
 
-        public BrukarUpdateRequest build() {
-            return new BrukarUpdateRequest(name, email, pwd);
+        public PersonUpdateRequest build() {
+            return new PersonUpdateRequest(name, email, pwd);
         }
     }
 
