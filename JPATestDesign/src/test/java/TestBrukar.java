@@ -1,6 +1,5 @@
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,19 +7,23 @@ import javax.persistence.Persistence;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 public class TestBrukar {
     private static final String PERSISTENCE_UNIT_NAME = "poll";
     private static final String ENVIRONMENT_JDBC_URL = "jdbc_urldb";
     private static EntityManagerFactory factory;
-    EntityManager em ;
+    EntityManager em;
     BrukarDao brukarDao;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, configOverrideFromEnv());
         em = factory.createEntityManager();
         brukarDao = new BrukarDao(em);
     }
+
     @Test
     public void testAddUserAddsOneUser() {
         int startLength = brukarDao.getAllBrukars().size();
@@ -32,11 +35,12 @@ public class TestBrukar {
     public void testUpdateBrukar() {
         Brukar brukar = brukarDao.addBrukar("beforname", "befor@email.com", "beforepwd");
         System.out.println(brukar.getName());
-        Map<String, String> updateMap = new HashMap<>();
-        updateMap.put("name", "aftername");
-        updateMap.put("email", "after@email.com");
-        updateMap.put("hash", "afterpwd");
-        brukarDao.updateBrukar(brukar.getId(), updateMap);
+        BrukarUpdateRequest bur = BrukarUpdateRequest.builder()
+                .name("aftername")
+                .email("after@email.com")
+                .pwd("afterpwd")
+                .build();
+        brukarDao.updateBrukar(brukar.getId(), bur);
         System.out.println(brukarDao.getBrukarById(brukar.getId()).getName());
         assertEquals(brukarDao.getBrukarById(brukar.getId()).getName(), "aftername");
     }

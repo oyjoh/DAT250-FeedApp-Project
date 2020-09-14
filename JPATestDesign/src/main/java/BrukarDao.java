@@ -8,7 +8,7 @@ import java.util.Map;
 public class BrukarDao implements IBrukarDao{
     private EntityManager entityManager;
 
-    public BrukarDao (EntityManager entityManager) {
+    public BrukarDao(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -27,14 +27,35 @@ public class BrukarDao implements IBrukarDao{
         // Iterate over the input to see what we want to update
         for (Map.Entry<String, String> e : inputMap.entrySet()) {
             switch (e.getKey()) {
-                case "name" : brukar.setName(e.getValue());
-                break;
-                case "email" : brukar.setEmail(e.getValue());
-                break;
-                case "hash" : brukar.setHash(getSHA256Hash(e.getValue()));
-                break;
+                case "name":
+                    brukar.setName(e.getValue());
+                    break;
+                case "email":
+                    brukar.setEmail(e.getValue());
+                    break;
+                case "hash":
+                    brukar.setHash(getSHA256Hash(e.getValue()));
+                    break;
             }
         }
+        brukar.setUpdated_time(updatedTimestamp);
+
+        // Update the database
+        entityManager.getTransaction().begin();
+        //entityManager.merge(brukar);
+        entityManager.persist(brukar);
+        entityManager.getTransaction().commit();
+
+    }
+
+    public void updateBrukar(Long brukarId, BrukarUpdateRequest bur) {
+        String updatedTimestamp = TimeStamp.getTimeStamp();
+        Brukar brukar = getBrukarById(brukarId);
+
+        // Iterate over the input to see what we want to update
+        if (bur.getName() != null) brukar.setName(bur.getName());
+        if (bur.getEmail() != null) brukar.setEmail(bur.getEmail());
+        if (bur.getPwd() != null) brukar.setHash(getSHA256Hash(bur.getPwd()));
         brukar.setUpdated_time(updatedTimestamp);
 
         // Update the database
